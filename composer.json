@@ -1,6 +1,6 @@
 {
   "name": "ianm/gravatar",
-  "description": "Add gravatar support",
+  "description": "Add gravatar avatars to your forum",
   "keywords": [
     "flarum", "gravatar"
   ],
