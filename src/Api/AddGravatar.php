@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of ianm/gravatar.
+ *
+ * Copyright (c) 2021 IanM.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace IanM\Gravatar\Api;
 
 use Flarum\Api\Serializer\BasicUserSerializer;
@@ -18,7 +27,7 @@ class AddGravatar
         $this->gravatar = $gravatar;
         $this->settings = $settings;
     }
-    
+
     public function __invoke(BasicUserSerializer $serializer, User $user, array $attributes)
     {
         if (empty($user->avatarUrl) || (bool) $this->settings->get('ianm-gravatar.replace-flarum-custom', false)) {
