@@ -32,6 +32,7 @@ class AddGravatar
     {
         if (empty($user->avatarUrl) || (bool) $this->settings->get('ianm-gravatar.replace-flarum-custom', false)) {
             $attributes['avatarUrl'] = $this->gravatar->get($user->email);
+            $attributes['gravatar'] = true;
         }
 
         return $attributes;
