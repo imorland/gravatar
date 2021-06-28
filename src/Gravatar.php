@@ -42,9 +42,10 @@ class Gravatar
     }
 
     /**
-     * Get the gravatar for the given user id
+     * Get the gravatar for the given user id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return string
      */
     public function getForUser(int $id): string
@@ -61,15 +62,16 @@ class Gravatar
     }
 
     /**
-     * Get the gravatar directly from gravatar.com
+     * Get the gravatar directly from gravatar.com.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return string
      */
     public function getRemote(int $id): string
     {
         $user = User::findOrFail($id);
-        
+
         $this->email = $user->email;
 
         return $this->buildUrl();

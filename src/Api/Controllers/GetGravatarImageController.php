@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of ianm/gravatar.
+ *
+ * Copyright (c) 2021 IanM.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace IanM\Gravatar\Api\Controllers;
 
 use Flarum\Http\Exception\RouteNotFoundException;
@@ -20,13 +29,13 @@ class GetGravatarImageController implements RequestHandlerInterface
     private Gravatar $gravatar;
 
     private SettingsRepositoryInterface $settings;
-    
+
     public function __construct(Gravatar $gravatar, SettingsRepositoryInterface $settings)
     {
         $this->gravatar = $gravatar;
         $this->settings = $settings;
     }
-    
+
     /**
      * Handle the request and return a response.
      *
@@ -41,9 +50,9 @@ class GetGravatarImageController implements RequestHandlerInterface
         if (!(bool) $this->settings->get('ianm-gravatar.proxy', false)) {
             throw new RouteNotFoundException();
         }
-        
+
         $id = Arr::get($request->getQueryParams(), 'id');
-        
+
         $gravatarurl = $this->gravatar->getRemote($id);
 
         $client = new Client();
