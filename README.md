@@ -1,6 +1,8 @@
 # Gravatar
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/ianm/gravatar.svg)](https://packagist.org/packages/ianm/gravatar) [![Total Downloads](https://img.shields.io/packagist/dt/ianm/gravatar.svg)](https://packagist.org/packages/ianm/gravatar)
+![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/ianm/gravatar.svg)](https://packagist.org/packages/ianm/gravatar) 
+
+![Extiverse](https://extiverse.com/extension/ianm/gravatar/open-graph-image)
 
 A [Flarum](http://flarum.org) extension. Add [gravatar](https://gravatar.com/) avatars to your forum.
 
