@@ -25,7 +25,12 @@ return [
         ->css(__DIR__.'/resources/less/admin.less'),
 
     (new Extend\Routes('api'))
-        ->remove('users.avatar.upload'),
+        ->remove('users.avatar.upload')
+        ->get(
+            '/users/{id}/gravatar.jpg',
+            'ianm.gravatar.image',
+            Api\Controllers\GetGravatarImageController::class
+        ),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 

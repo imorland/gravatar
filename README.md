@@ -13,17 +13,17 @@ A [Flarum](http://flarum.org) extension. Add [gravatar](https://gravatar.com/) a
 - Supports multiple Gravatar default sets
 - Option to override a user-set Gravatar with one from the chosen default set
 - Support for restricting Gravatars to their content rating
+- Proxy fetching gravatar images via the forum
 
 ![forum](https://user-images.githubusercontent.com/16573496/123618543-370b0200-d800-11eb-8b8b-15da53071874.png)
 
 ![profile](https://user-images.githubusercontent.com/16573496/123618712-5c980b80-d800-11eb-9c03-0355472caa53.png)
 
-![settings](https://user-images.githubusercontent.com/16573496/123618627-4a1dd200-d800-11eb-8824-36495180484f.png)
+![settings](https://user-images.githubusercontent.com/16573496/123634120-f1573500-d811-11eb-83c1-1e1fd9004183.png)
 
 
 ##### TO-DO
 
-- Proxy the gravatar thru PHP
 - Allow users to switch between gravatar and forum uploaded avatar, with admin option to enable/disable
 - Add support for Gravatar profile fields
 

@@ -6,6 +6,16 @@ app.initializers.add('ianm/gravatar', () => {
     app.extensionData
         .for('ianm-gravatar')
         .registerSetting(function () {
+            return [
+                <div class="helpText">{app.translator.trans('ianm-gravatar.admin.settings.proxy.helptext')}</div>
+            ]
+        })
+        .registerSetting({
+            label: app.translator.trans('ianm-gravatar.admin.settings.proxy.title'),
+            setting: 'ianm-gravatar.proxy',
+            type: 'bool',
+        })
+        .registerSetting(function () {
             return [<div class="helpText">{app.translator.trans('ianm-gravatar.admin.settings.replace-flarum-custom.helptext')}</div>];
         })
         .registerSetting({

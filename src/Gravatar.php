@@ -11,7 +11,9 @@
 
 namespace IanM\Gravatar;
 
+use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\User\User;
 
 class Gravatar
 {
@@ -31,21 +33,44 @@ class Gravatar
 
     private SettingsRepositoryInterface $settings;
 
-    public function __construct(SettingsRepositoryInterface $settings)
+    private UrlGenerator $url;
+
+    public function __construct(SettingsRepositoryInterface $settings, UrlGenerator $url)
     {
         $this->settings = $settings;
+        $this->url = $url;
     }
 
     /**
-     * Get the gravatar url.
+     * Get the gravatar for the given user id
      *
-     * @param string $email
-     *
+     * @param integer $id
      * @return string
      */
-    public function get($email): string
+    public function getForUser(int $id): string
     {
-        $this->email = $email;
+        $user = User::findOrFail($id);
+
+        if ((bool) $this->settings->get('ianm-gravatar.proxy', false)) {
+            return $this->url->to('api')->route('ianm.gravatar.image', ['id' => $user->id]);
+        }
+
+        $this->email = $user->email;
+
+        return $this->buildUrl();
+    }
+
+    /**
+     * Get the gravatar directly from gravatar.com
+     *
+     * @param integer $id
+     * @return string
+     */
+    public function getRemote(int $id): string
+    {
+        $user = User::findOrFail($id);
+        
+        $this->email = $user->email;
 
         return $this->buildUrl();
     }
