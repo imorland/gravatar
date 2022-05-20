@@ -47,7 +47,7 @@ class GetGravatarImageController implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        if (!(bool) $this->settings->get('ianm-gravatar.proxy', false)) {
+        if (!(bool) $this->settings->get('ianm-gravatar.proxy')) {
             throw new RouteNotFoundException();
         }
 

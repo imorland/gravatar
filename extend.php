@@ -39,4 +39,11 @@ return [
 
     (new Extend\ApiSerializer(BasicUserSerializer::class))
         ->attributes(Api\AddGravatar::class),
+
+    (new Extend\Settings())
+        ->default('ianm-gravatar.default', 'mp')
+        ->default('ianm-gravatar.rating', 'g')
+        ->default('ianm-gravatar.proxy', false)
+        ->default('ianm-gravatar.force-default', false)
+        ->default('ianm-gravatar.replace-flarum-custom', false),
 ];

@@ -30,7 +30,7 @@ class AddGravatar
 
     public function __invoke(BasicUserSerializer $serializer, User $user, array $attributes)
     {
-        if (empty($attributes['avatarUrl']) || (bool) $this->settings->get('ianm-gravatar.replace-flarum-custom', false)) {
+        if (empty($attributes['avatarUrl']) || (bool) $this->settings->get('ianm-gravatar.replace-flarum-custom')) {
             $attributes['avatarUrl'] = $this->gravatar->getForUser($user->id);
             $attributes['gravatar'] = true;
         }

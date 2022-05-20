@@ -52,7 +52,7 @@ class Gravatar
     {
         $user = User::findOrFail($id);
 
-        if ((bool) $this->settings->get('ianm-gravatar.proxy', false)) {
+        if ((bool) $this->settings->get('ianm-gravatar.proxy')) {
             return $this->url->to('api')->route('ianm.gravatar.image', ['id' => $user->id]);
         }
 
@@ -157,7 +157,7 @@ class Gravatar
      */
     private function forceDefaultParameter()
     {
-        if ((bool) $this->settings->get('ianm-gravatar.force-default', false)) {
+        if ((bool) $this->settings->get('ianm-gravatar.force-default')) {
             return ['forcedefault' => 'y'];
         }
 
