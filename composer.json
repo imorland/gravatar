@@ -1,47 +1,62 @@
 {
-  "name": "ianm/gravatar",
-  "description": "Add gravatar avatars to your forum",
-  "keywords": [
-    "flarum", "gravatar"
-  ],
-  "type": "flarum-extension",
-  "license": "MIT",
-  "support": {
-    "issues": "https://github.com/imorland/gravatar/issues",
-    "source": "https://github.com/imorland/gravatar",
-    "forum": "https://discuss.flarum.org/d/27930"
-  },
-  "require": {
-    "php": "^7.4 || ^8.0",
-    "flarum/core": "^1.2.0",
-    "guzzlehttp/guzzle": "^7.0"
-  },
-  "authors": [
-    {
-      "name": "IanM",
-      "email": "ian@blomstra.net",
-      "role": "Developer"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "IanM\\Gravatar\\": "src/"
-    }
-  },
-  "extra": {
-    "flarum-extension": {
-      "title": "Gravatar",
-      "category": "feature",
-      "icon": {
-        "image": "resources/logo.svg",
-        "backgroundColor": "#0072e3",
-        "backgroundSize": "80%",
-        "backgroundRepeat": "no-repeat",
-        "backgroundPosition": "center"
-    }
+    "name": "ianm/gravatar",
+    "description": "Add gravatar avatars to your forum",
+    "keywords": [
+        "flarum",
+        "gravatar"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/imorland/gravatar/issues",
+        "source": "https://github.com/imorland/gravatar",
+        "forum": "https://discuss.flarum.org/d/27930"
     },
-    "flagrow": {
-      "discuss": "https://discuss.flarum.org/d/27930"
+    "require": {
+        "flarum/core": "^1.2.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "authors": [
+        {
+            "name": "IanM",
+            "email": "ian@blomstra.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "IanM\\Gravatar\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Gravatar",
+            "category": "feature",
+            "icon": {
+                "image": "resources/logo.svg",
+                "backgroundColor": "#0072e3",
+                "backgroundSize": "80%",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "center"
+            }
+        },
+        "flagrow": {
+            "discuss": "https://discuss.flarum.org/d/27930"
+        },
+        "flarum-cli": {
+            "modules": {
+                "githubActions": true
+            }
+        }
+    },
+    "require-dev": {
+        "flarum/phpstan": "*"
+    },
+    "scripts": {
+        "analyse:phpstan": "phpstan analyse",
+        "clear-cache:phpstan": "phpstan clear-result-cache"
+    },
+    "scripts-descriptions": {
+        "analyse:phpstan": "Run static analysis"
     }
-  }
 }
