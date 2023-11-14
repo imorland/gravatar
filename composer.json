@@ -13,7 +13,6 @@
         "forum": "https://discuss.flarum.org/d/27930"
     },
     "require": {
-        "php": "^7.4 || ^8.0",
         "flarum/core": "^1.2.0",
         "guzzlehttp/guzzle": "^7.0"
     },
