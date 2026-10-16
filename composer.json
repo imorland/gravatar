@@ -19,7 +19,7 @@
     "authors": [
         {
             "name": "IanM",
-            "email": "ian@blomstra.net",
+            "email": "ian@flarum.org",
             "role": "Developer"
         }
     ],
@@ -29,6 +29,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-2.x": "2.x-dev"
+        },
         "flarum-extension": {
             "title": "Gravatar",
             "category": "feature",
