@@ -11,13 +11,9 @@
 
 namespace IanM\Gravatar;
 
-use Flarum\Api\Serializer\BasicUserSerializer;
+use Flarum\Api\Resource;
 use Flarum\Extend;
 use IanM\Gravatar\Provider\GravatarProvider;
-use Flarum\Api\Context;
-use Flarum\Api\Endpoint;
-use Flarum\Api\Resource;
-use Flarum\Api\Schema;
 
 return [
     (new Extend\Frontend('forum'))
@@ -29,7 +25,6 @@ return [
         ->css(__DIR__.'/resources/less/admin.less'),
 
     (new Extend\Routes('api'))
-        ->remove('users.avatar.upload')
         ->get(
             '/users/{id}/gravatar.jpg',
             'ianm.gravatar.image',
@@ -41,9 +36,11 @@ return [
     (new Extend\ServiceProvider())
         ->register(GravatarProvider::class),
 
-    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
-    (new Extend\ApiSerializer(BasicUserSerializer::class))
-        ->attributes(Api\AddGravatar::class),
+    (new Extend\ApiResource(Resource\UserResource::class))
+        ->removeEndpoints(['avatar.upload'])
+        ->fields(Api\UserResourceFields::class)
+        ->field('avatarUrl', Api\UserResourceFields::avatarUrl(...))
+        ->field('avatarSrcset', Api\UserResourceFields::avatarSrcset(...)),
 
     (new Extend\Settings())
         ->default('ianm-gravatar.default', 'mp')

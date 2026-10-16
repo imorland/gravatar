@@ -18,67 +18,74 @@ use Flarum\User\User;
 class Gravatar
 {
     /**
+     * Pixel size for each pixel density, matching the 100/200/300px variants
+     * core generates for uploaded avatars.
+     */
+    public const SIZES = [1 => 100, 2 => 200, 3 => 300];
+
+    /**
      * Gravatar base url.
      *
      * @var string
      */
     private string $publicBaseUrl = 'https://www.gravatar.com/avatar/';
 
-    /**
-     * Email address to check.
-     *
-     * @var string
-     */
-    private string $email;
-
     public function __construct(private SettingsRepositoryInterface $settings, private UrlGenerator $url)
     {
     }
 
     /**
-     * Get the gravatar for the given user id.
-     *
-     * @param int $id
-     *
-     * @return string
+     * Whether the user should be shown a gravatar instead of their own avatar.
      */
-    public function getForUser(int $id): string
+    public function usesGravatar(User $user): bool
     {
-        $user = User::findOrFail($id);
+        return empty($user->avatar_url) || (bool) $this->settings->get('ianm-gravatar.replace-flarum-custom');
+    }
 
+    /**
+     * Get the gravatar URL for the given user.
+     */
+    public function getForUser(User $user, int $size = self::SIZES[1]): string
+    {
         if ((bool) $this->settings->get('ianm-gravatar.proxy')) {
-            return $this->url->to('api')->route('ianm.gravatar.image', ['id' => $user->id]);
+            $url = $this->url->to('api')->route('ianm.gravatar.image', ['id' => $user->id]);
+
+            return $size === self::SIZES[1] ? $url : $url.'?'.http_build_query(['s' => $size]);
         }
 
-        $this->email = $user->email;
+        return $this->buildUrl($user->email, $size);
+    }
 
-        return $this->buildUrl();
+    /**
+     * Get a HiDPI srcset of gravatar URLs for the given user.
+     */
+    public function getSrcsetForUser(User $user): string
+    {
+        $entries = [];
+
+        foreach (self::SIZES as $density => $size) {
+            $entries[] = $this->getForUser($user, $size)." {$density}x";
+        }
+
+        return implode(', ', $entries);
     }
 
     /**
      * Get the gravatar directly from gravatar.com.
-     *
-     * @param int $id
-     *
-     * @return string
      */
-    public function getRemote(int $id): string
+    public function getRemote(int $id, int $size = self::SIZES[1]): string
     {
         $user = User::findOrFail($id);
 
-        $this->email = $user->email;
-
-        return $this->buildUrl();
+        return $this->buildUrl($user->email, $size);
     }
 
     /**
      * Helper function to md5 hash the email address.
-     *
-     * @return string
      */
-    private function hashEmail(): string
+    private function hashEmail(string $email): string
     {
-        return md5(strtolower(trim($this->email)));
+        return md5(strtolower(trim($email)));
     }
 
     /**
@@ -89,35 +96,24 @@ class Gravatar
         return '.png';
     }
 
-    /**
-     * @return string
-     */
-    private function buildUrl(): string
+    private function buildUrl(string $email, int $size): string
     {
         $url = $this->publicBaseUrl;
-        $url .= $this->hashEmail();
+        $url .= $this->hashEmail($email);
         $url .= $this->getExtension();
-        $url .= $this->getUrlParameters();
+        $url .= $this->getUrlParameters($size);
 
         return $url;
     }
 
-    /**
-     * @return string
-     */
-    private function getUrlParameters(): string
+    private function getUrlParameters(int $size): string
     {
-        $build = [];
-
-        foreach (get_class_methods($this) as $method) {
-            if (substr($method, -strlen('Parameter')) !== 'Parameter') {
-                continue;
-            }
-
-            if ($called = call_user_func([$this, $method])) {
-                $build = array_replace($build, $called);
-            }
-        }
+        $build = array_replace(
+            $this->sizeParameter($size),
+            $this->defaultParameter(),
+            $this->ratingParameter(),
+            $this->forceDefaultParameter() ?? []
+        );
 
         return '?'.http_build_query($build);
     }
@@ -125,9 +121,9 @@ class Gravatar
     /**
      * @return array
      */
-    private function sizeParameter(): array
+    private function sizeParameter(int $size): array
     {
-        return ['s' => '100'];
+        return ['s' => (string) $size];
     }
 
     /**
@@ -149,7 +145,7 @@ class Gravatar
     /**
      * @return array|null
      */
-    private function forceDefaultParameter()
+    private function forceDefaultParameter(): ?array
     {
         if ((bool) $this->settings->get('ianm-gravatar.force-default')) {
             return ['forcedefault' => 'y'];

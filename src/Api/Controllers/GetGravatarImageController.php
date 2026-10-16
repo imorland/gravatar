@@ -45,9 +45,16 @@ class GetGravatarImageController implements RequestHandlerInterface
             throw new RouteNotFoundException();
         }
 
-        $id = Arr::get($request->getQueryParams(), 'id');
+        $id = (int) Arr::get($request->getQueryParams(), 'id');
+        $size = (int) Arr::get($request->getQueryParams(), 's', Gravatar::SIZES[1]);
 
-        $gravatarurl = $this->gravatar->getRemote($id);
+        // Only proxy the sizes we hand out in srcsets, so the proxy can't be
+        // used to fetch arbitrary sizes from gravatar.com.
+        if (!in_array($size, Gravatar::SIZES, true)) {
+            $size = Gravatar::SIZES[1];
+        }
+
+        $gravatarurl = $this->gravatar->getRemote($id, $size);
 
         $client = new Client();
 
