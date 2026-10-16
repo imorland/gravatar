@@ -26,14 +26,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class GetGravatarImageController implements RequestHandlerInterface
 {
-    private Gravatar $gravatar;
-
-    private SettingsRepositoryInterface $settings;
-
-    public function __construct(Gravatar $gravatar, SettingsRepositoryInterface $settings)
+    public function __construct(private Gravatar $gravatar, private SettingsRepositoryInterface $settings)
     {
-        $this->gravatar = $gravatar;
-        $this->settings = $settings;
     }
 
     /**

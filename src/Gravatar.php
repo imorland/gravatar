@@ -31,14 +31,8 @@ class Gravatar
      */
     private string $email;
 
-    private SettingsRepositoryInterface $settings;
-
-    private UrlGenerator $url;
-
-    public function __construct(SettingsRepositoryInterface $settings, UrlGenerator $url)
+    public function __construct(private SettingsRepositoryInterface $settings, private UrlGenerator $url)
     {
-        $this->settings = $settings;
-        $this->url = $url;
     }
 
     /**

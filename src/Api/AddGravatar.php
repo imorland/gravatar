@@ -18,14 +18,8 @@ use IanM\Gravatar\Gravatar;
 
 class AddGravatar
 {
-    public Gravatar $gravatar;
-
-    public SettingsRepositoryInterface $settings;
-
-    public function __construct(Gravatar $gravatar, SettingsRepositoryInterface $settings)
+    public function __construct(public Gravatar $gravatar, public SettingsRepositoryInterface $settings)
     {
-        $this->gravatar = $gravatar;
-        $this->settings = $settings;
     }
 
     public function __invoke(BasicUserSerializer $serializer, User $user, array $attributes)
