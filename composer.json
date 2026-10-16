@@ -13,7 +13,7 @@
         "forum": "https://discuss.flarum.org/d/27930"
     },
     "require": {
-        "flarum/core": "^1.2.0",
+        "flarum/core": "^2.0.0",
         "guzzlehttp/guzzle": "^7.0"
     },
     "authors": [
@@ -50,7 +50,7 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*"
+        "flarum/phpstan": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
