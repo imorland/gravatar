@@ -3,7 +3,7 @@ import defaultOptions from '../common/utils/defaultOptions';
 import ratingOptions from '../common/utils/ratingOptions';
 
 app.initializers.add('ianm/gravatar', () => {
-  app.extensionData
+  app.registry
     .for('ianm-gravatar')
     .registerSetting({
       label: app.translator.trans('ianm-gravatar.admin.settings.proxy.title'),
