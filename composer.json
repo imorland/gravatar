@@ -13,13 +13,13 @@
         "forum": "https://discuss.flarum.org/d/27930"
     },
     "require": {
-        "flarum/core": "^1.2.0",
+        "flarum/core": "^2.0.0",
         "guzzlehttp/guzzle": "^7.0"
     },
     "authors": [
         {
             "name": "IanM",
-            "email": "ian@blomstra.net",
+            "email": "ian@flarum.org",
             "role": "Developer"
         }
     ],
@@ -29,6 +29,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-2.x": "2.x-dev"
+        },
         "flarum-extension": {
             "title": "Gravatar",
             "category": "feature",
@@ -50,7 +53,7 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*"
+        "flarum/phpstan": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",

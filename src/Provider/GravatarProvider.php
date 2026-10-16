@@ -18,6 +18,7 @@ class GravatarProvider extends AbstractServiceProvider
 {
     public function register()
     {
-        $this->container->singleton('gravatar', Gravatar::class);
+        $this->container->singleton(Gravatar::class);
+        $this->container->alias(Gravatar::class, 'gravatar');
     }
 }
